@@ -1,0 +1,24 @@
+ref: infoblox.record_delete
+label: "Delete Infoblox DNS record"
+description: "Idempotently delete one exact A, AAAA, CNAME, or PTR record after value confirmation"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: infoblox_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: "infoblox.credentials", key_ref: true, description: "Pack-owned Infoblox credential Key ref"}
+  record_type: {type: string, enum: [A, AAAA, CNAME, PTR], required: true}
+  view: {type: string, default: default}
+  name: {type: string, description: "Required owner name for A, AAAA, and CNAME"}
+  value: {type: string, required: true, description: "Exact address, canonical name, or PTR target"}
+  address: {type: string, description: "Required exact PTR source IPv4/IPv6 address"}
+  confirm_value: {type: string, required: true, description: "Must equal the normalized value"}
+  confirm: {type: boolean, const: true, required: true}
+output:
+  operation: {type: string, required: true}
+  result: {type: object, required: true}
+tags: [infoblox, dns, record, delete, destructive]

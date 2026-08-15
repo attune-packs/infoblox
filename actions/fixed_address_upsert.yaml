@@ -1,0 +1,25 @@
+ref: infoblox.fixed_address_upsert
+label: "Upsert Infoblox fixed address"
+description: "Create an explicit IPv4/IPv6 fixed address or update supplied fields by exact address identity"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: infoblox_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: "infoblox.credentials", key_ref: true, description: "Pack-owned Infoblox credential Key ref"}
+  family: {type: string, enum: [ipv4, ipv6], default: ipv4}
+  address: {type: string, required: true}
+  network_view: {type: string, default: default}
+  client_identifier: {type: string, required: true, description: "IPv4 MAC, or IPv6 DUID/MAC selected by match_client"}
+  match_client: {type: string, enum: [DUID, MAC_ADDRESS], default: DUID, description: "IPv6 only"}
+  name: {type: string, max_length: 256}
+  comment: {type: string, max_length: 256}
+  disable: {type: boolean}
+output:
+  operation: {type: string, required: true}
+  result: {type: object, required: true}
+tags: [infoblox, dhcp, fixed-address, upsert]

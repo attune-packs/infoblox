@@ -1,0 +1,21 @@
+ref: infoblox.dns_view_upsert
+label: "Upsert Infoblox DNS view"
+description: "Create an absent DNS view or idempotently update supplied mutable fields"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: infoblox_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: "infoblox.credentials", key_ref: true, description: "Pack-owned Infoblox credential Key ref"}
+  name: {type: string, required: true}
+  network_view: {type: string, default: default, description: "Create-only associated network view"}
+  comment: {type: string, max_length: 64}
+  disable: {type: boolean}
+output:
+  operation: {type: string, required: true}
+  result: {type: object, required: true}
+tags: [infoblox, dns, view, upsert]

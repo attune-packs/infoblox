@@ -1,0 +1,10 @@
+Infoblox NIOS Attune Pack
+Copyright 2026 Attune
+
+This product includes software adapted from the StackStorm Exchange Infoblox
+pack, version 1.1.1, originally created by Dimension Data Europe contributors.
+The upstream work is licensed under the Apache License, Version 2.0.
+
+Infoblox and NIOS are trademarks of Infoblox Inc. Their use here identifies
+the API supported by this independently developed integration and does not
+imply endorsement.

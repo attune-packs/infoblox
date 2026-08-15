@@ -1,0 +1,22 @@
+ref: infoblox.network_delete
+label: "Delete Infoblox network"
+description: "Idempotently delete one exact network after normalized-CIDR confirmation"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: infoblox_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: "infoblox.credentials", key_ref: true, description: "Pack-owned Infoblox credential Key ref"}
+  family: {type: string, enum: [ipv4, ipv6], default: ipv4}
+  network: {type: string, required: true}
+  network_view: {type: string, default: default}
+  confirm_network: {type: string, required: true, description: "Must equal the normalized CIDR"}
+  confirm: {type: boolean, const: true, required: true}
+output:
+  operation: {type: string, required: true}
+  result: {type: object, required: true}
+tags: [infoblox, ipam, network, delete, destructive]

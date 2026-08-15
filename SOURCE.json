@@ -1,0 +1,18 @@
+{
+  "upstream": {
+    "repository": "https://github.com/StackStorm-Exchange/stackstorm-infoblox",
+    "version": "1.1.1",
+    "tag": "v1.1.1",
+    "revision": "49ab61fed17ed05bb72b4c4506890f88aa873569",
+    "revision_date": "2022-12-03T00:32:22-06:00",
+    "license": "Apache-2.0",
+    "license_blob": "d645695673349e3947e8e5ae42332d0ac3164cd7"
+  },
+  "api_reference": {
+    "product": "Infoblox NIOS WAPI",
+    "version": "2.13.7",
+    "documentation": "https://ipam.illinois.edu/wapidoc/",
+    "copyright_year": 2025,
+    "verified_at": "2026-08-14"
+  }
+}

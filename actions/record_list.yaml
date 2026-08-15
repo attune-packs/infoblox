@@ -1,0 +1,25 @@
+ref: infoblox.record_list
+label: "List Infoblox DNS records"
+description: "List A, AAAA, CNAME, or PTR records using exact filters and bounded WAPI paging"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: infoblox_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: "infoblox.credentials", key_ref: true, description: "Pack-owned Infoblox credential Key ref"}
+  record_type: {type: string, enum: [A, AAAA, CNAME, PTR], required: true}
+  view: {type: string, default: default}
+  name: {type: string, description: "Exact owner name"}
+  value: {type: string, description: "Exact address, canonical name, or PTR target"}
+  address: {type: string, description: "PTR source IPv4/IPv6 address"}
+  return_fields: {type: array, items: {type: string}, max_items: 50}
+  page_size: {type: integer, default: 200, minimum: 1, maximum: 1000}
+  max_pages: {type: integer, default: 10, minimum: 1, maximum: 50}
+output:
+  operation: {type: string, required: true}
+  result: {type: object, required: true}
+tags: [infoblox, dns, record, list]

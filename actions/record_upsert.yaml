@@ -1,0 +1,26 @@
+ref: infoblox.record_upsert
+label: "Upsert Infoblox DNS record"
+description: "Idempotently create or update one A, AAAA, CNAME, or PTR record by exact identity"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: infoblox_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: "infoblox.credentials", key_ref: true, description: "Pack-owned Infoblox credential Key ref"}
+  record_type: {type: string, enum: [A, AAAA, CNAME, PTR], required: true}
+  view: {type: string, default: default}
+  name: {type: string, description: "Required owner name for A, AAAA, and CNAME"}
+  value: {type: string, required: true, description: "Desired address, canonical name, or PTR target"}
+  current_value: {type: string, description: "Current A/AAAA address or PTR target when changing one value in a multi-value owner"}
+  address: {type: string, description: "Required PTR source IPv4/IPv6 address"}
+  ttl: {type: integer, minimum: 0, maximum: 4294967295, description: "Sets explicit TTL and use_ttl=true; omit to preserve inheritance"}
+  comment: {type: string, max_length: 256}
+  disable: {type: boolean}
+output:
+  operation: {type: string, required: true}
+  result: {type: object, required: true}
+tags: [infoblox, dns, record, upsert]

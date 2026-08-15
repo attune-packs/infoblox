@@ -1,0 +1,25 @@
+ref: infoblox.fixed_address_allocate
+label: "Atomically allocate Infoblox fixed address"
+description: "Atomically select and create a fixed address with an inline WAPI next_available_ip function"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: infoblox_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: "infoblox.credentials", key_ref: true, description: "Pack-owned Infoblox credential Key ref"}
+  family: {type: string, enum: [ipv4, ipv6], default: ipv4}
+  network: {type: string, required: true}
+  network_view: {type: string, default: default}
+  client_identifier: {type: string, required: true, description: "Stable idempotency lookup: IPv4 MAC or IPv6 DUID/MAC"}
+  match_client: {type: string, enum: [DUID, MAC_ADDRESS], default: DUID, description: "IPv6 only"}
+  exclude: {type: array, items: {type: string}, max_items: 100}
+  name: {type: string, max_length: 256}
+  comment: {type: string, max_length: 256}
+output:
+  operation: {type: string, required: true}
+  result: {type: object, required: true}
+tags: [infoblox, dhcp, fixed-address, allocation, atomic]

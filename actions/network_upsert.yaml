@@ -1,0 +1,23 @@
+ref: infoblox.network_upsert
+label: "Upsert Infoblox network"
+description: "Create an absent IPv4/IPv6 network or update supplied mutable fields"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: infoblox_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: "infoblox.credentials", key_ref: true, description: "Pack-owned Infoblox credential Key ref"}
+  family: {type: string, enum: [ipv4, ipv6], default: ipv4}
+  network: {type: string, required: true, description: "CIDR, normalized before exact lookup"}
+  network_view: {type: string, default: default}
+  comment: {type: string, max_length: 256}
+  disable: {type: boolean}
+  auto_create_reversezone: {type: boolean, description: "Create-only WAPI option; ignored when the network exists"}
+output:
+  operation: {type: string, required: true}
+  result: {type: object, required: true}
+tags: [infoblox, ipam, network, upsert]

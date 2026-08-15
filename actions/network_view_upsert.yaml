@@ -1,0 +1,19 @@
+ref: infoblox.network_view_upsert
+label: "Upsert Infoblox network view"
+description: "Create an absent network view or idempotently update its supplied mutable fields"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: infoblox_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: "infoblox.credentials", key_ref: true, description: "Pack-owned Infoblox credential Key ref"}
+  name: {type: string, required: true, description: "Exact network view identity"}
+  comment: {type: string, max_length: 256}
+output:
+  operation: {type: string, required: true}
+  result: {type: object, required: true}
+tags: [infoblox, ipam, network-view, upsert]

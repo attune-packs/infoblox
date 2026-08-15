@@ -1,0 +1,46 @@
+ref: infoblox
+label: "Infoblox NIOS"
+description: "Safe Infoblox NIOS WAPI actions for IPAM, DHCP fixed addresses, and authoritative DNS"
+version: "0.1.0"
+author: "Attune; adapted from work by Dimension Data and StackStorm Exchange contributors"
+email: "support@attune.systems"
+system: false
+enabled: true
+
+conf_schema:
+  default_credential_key:
+    type: string
+    description: "Pack-owned Attune Key containing Infoblox WAPI credentials"
+    default: "infoblox.credentials"
+
+config:
+  default_credential_key: "infoblox.credentials"
+
+meta:
+  category: integration
+  documentation_url: "https://ipam.illinois.edu/wapidoc/"
+  repository_url: "https://github.com/attune-packs/infoblox"
+  source_version: "1.1.1 (49ab61fed17ed05bb72b4c4506890f88aa873569)"
+  source_revision: "49ab61fed17ed05bb72b4c4506890f88aa873569"
+  license: "Apache-2.0"
+  python_dependencies:
+    - "attune-sdk>=0.1.0"
+    - "requests>=2.32.0,<3.0.0"
+
+tags: [infoblox, nios, wapi, ipam, dhcp, dns, integration]
+runtime_deps: [python]
+dependencies: []
+
+testing:
+  enabled: true
+  discovery:
+    method: directory
+    path: tests
+  runners:
+    python:
+      type: unittest
+      entry_point: tests/test_pack.py
+      timeout: 120
+      result_format: simple
+  min_pass_rate: 1.0
+  on_failure: block

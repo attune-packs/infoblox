@@ -1,0 +1,27 @@
+ref: infoblox.address_search
+label: "Search Infoblox IP addresses"
+description: "Search read-only IPv4/IPv6 IPAM address objects with exact safe filters and bounded paging"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: infoblox_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: "infoblox.credentials", key_ref: true, description: "Pack-owned Infoblox credential Key ref"}
+  family: {type: string, enum: [ipv4, ipv6], default: ipv4}
+  network_view: {type: string, default: default}
+  address: {type: string, description: "Exact IP address"}
+  network: {type: string, description: "Exact containing CIDR"}
+  name: {type: string, description: "Exact associated DNS name"}
+  status: {type: string, description: "Exact appliance status"}
+  lease_state: {type: string, description: "Exact appliance lease state"}
+  return_fields: {type: array, items: {type: string}, max_items: 50}
+  page_size: {type: integer, default: 200, minimum: 1, maximum: 1000}
+  max_pages: {type: integer, default: 10, minimum: 1, maximum: 50}
+output:
+  operation: {type: string, required: true}
+  result: {type: object, required: true}
+tags: [infoblox, ipam, address, search]
