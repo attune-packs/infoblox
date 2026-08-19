@@ -1,0 +1,12 @@
+<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <title>Pack icon</title>
+  <g transform="translate(-3.349 -3.349) scale(1.2791)">
+
+  <g fill="none" stroke="#009CDE" stroke-width="1.7">
+    <circle cx="12" cy="12" r="7.6"/>
+    <ellipse cx="12" cy="12" rx="7.6" ry="3.4"/>
+    <line x1="12" y1="4.4" x2="12" y2="19.6"/>
+    <line x1="4.4" y1="12" x2="19.6" y2="12"/>
+  </g>
+  </g>
+</svg>
