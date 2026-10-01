@@ -11,10 +11,10 @@ conf_schema:
   default_credential_key:
     type: string
     description: "Pack-owned Attune Key containing Infoblox WAPI credentials"
-    default: "infoblox.credentials"
+    default: "pack.infoblox.credentials"
 
 config:
-  default_credential_key: "infoblox.credentials"
+  default_credential_key: "pack.infoblox.credentials"
 
 meta:
   category: integration

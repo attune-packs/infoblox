@@ -10,7 +10,7 @@ parameter_format: json
 output_format: json
 default_execution_permission_set_refs: [standard]
 parameters:
-  credential_key: {type: string, default: "infoblox.credentials", key_ref: true, description: "Pack-owned Infoblox credential Key ref"}
+  credential_key: {type: string, default: "pack.infoblox.credentials", key_ref: true, description: "Pack-owned Infoblox credential Key ref"}
   record_type: {type: string, enum: [A, AAAA, CNAME, PTR], required: true}
   view: {type: string, default: default}
   name: {type: string, description: "Exact owner name"}

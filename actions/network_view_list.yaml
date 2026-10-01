@@ -10,7 +10,7 @@ parameter_format: json
 output_format: json
 default_execution_permission_set_refs: [standard]
 parameters:
-  credential_key: {type: string, default: "infoblox.credentials", key_ref: true, description: "Pack-owned Infoblox credential Key ref"}
+  credential_key: {type: string, default: "pack.infoblox.credentials", key_ref: true, description: "Pack-owned Infoblox credential Key ref"}
   name: {type: string, description: "Exact network view name"}
   return_fields: {type: array, items: {type: string}, max_items: 50, description: "Exact WAPI fields to return; omit for basic fields"}
   page_size: {type: integer, default: 200, minimum: 1, maximum: 1000}

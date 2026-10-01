@@ -97,7 +97,7 @@ class MetadataTests(unittest.TestCase):
                     'runtime_version: ">=3.10"', "entry_point: infoblox_action.py",
                     "parameter_delivery: stdin", "parameter_format: json",
                     "output_format: json", "default_execution_permission_set_refs: [standard]",
-                    'default: "infoblox.credentials", key_ref: true',
+                    'default: "pack.infoblox.credentials", key_ref: true',
                     "operation: {type: string, required: true}",
                     "result: {type: object, required: true}",
                 ):
@@ -337,13 +337,13 @@ class ActionTests(unittest.TestCase):
 
 
 class CredentialAndEntryPointTests(unittest.TestCase):
-    def test_key_lookup_requests_decryption(self):
+    def test_key_lookup_uses_current_sdk_signature(self):
         calls = {}
         parsed = types.SimpleNamespace(data=types.SimpleNamespace(value=json.dumps(config())))
         fake_attune = types.ModuleType("attune")
         fake_attune.context = types.SimpleNamespace(client="execution-client")
         fake_secrets = types.ModuleType("attune.api_client.api.secrets")
-        fake_secrets.get_key = types.SimpleNamespace(sync_detailed=lambda ref, *, client, decrypt: calls.update(ref=ref, client=client, decrypt=decrypt) or types.SimpleNamespace(status_code=200, parsed=parsed))
+        fake_secrets.get_key = types.SimpleNamespace(sync_detailed=lambda ref, *, client: calls.update(ref=ref, client=client) or types.SimpleNamespace(status_code=200, parsed=parsed))
         modules = {
             "attune": fake_attune,
             "attune.api_client": types.ModuleType("attune.api_client"),
@@ -351,8 +351,8 @@ class CredentialAndEntryPointTests(unittest.TestCase):
             "attune.api_client.api.secrets": fake_secrets,
         }
         with mock.patch.dict(sys.modules, modules):
-            self.assertEqual("api-user", client._fetch_key("infoblox.credentials")["username"])
-        self.assertEqual({"ref": "infoblox.credentials", "client": "execution-client", "decrypt": True}, calls)
+            self.assertEqual("api-user", client._fetch_key("pack.infoblox.credentials")["username"])
+        self.assertEqual({"ref": "pack.infoblox.credentials", "client": "execution-client"}, calls)
 
     def test_entrypoint_structure_and_redaction(self):
         spec = importlib.util.spec_from_file_location("infoblox_action_test", ROOT / "actions" / "infoblox_action.py")

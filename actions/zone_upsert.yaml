@@ -10,7 +10,7 @@ parameter_format: json
 output_format: json
 default_execution_permission_set_refs: [standard]
 parameters:
-  credential_key: {type: string, default: "infoblox.credentials", key_ref: true, description: "Pack-owned Infoblox credential Key ref"}
+  credential_key: {type: string, default: "pack.infoblox.credentials", key_ref: true, description: "Pack-owned Infoblox credential Key ref"}
   fqdn: {type: string, required: true, description: "Zone name, or network/CIDR for a reverse zone"}
   view: {type: string, default: default}
   zone_format: {type: string, enum: [FORWARD, IPV4, IPV6], description: "Create-only; required by NIOS for reverse zones"}

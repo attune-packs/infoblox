@@ -42,7 +42,7 @@ def _fetch_key(ref: str) -> dict[str, Any]:
     except ImportError as exc:
         raise InfobloxPackError("attune-sdk is required to resolve credential_key") from exc
     try:
-        response = get_key.sync_detailed(ref, client=attune.context.client, decrypt=True)
+        response = get_key.sync_detailed(ref, client=attune.context.client)
     except Exception as exc:
         raise InfobloxPackError(f"unable to read credential Key {ref!r}") from exc
     status = int(response.status_code)
@@ -668,5 +668,5 @@ def execute_with_client(operation: str, params: Mapping[str, Any], client: Infob
 
 
 def execute_action(operation: str, params: Mapping[str, Any]) -> dict[str, Any]:
-    credential_key = params.get("credential_key", "infoblox.credentials")
+    credential_key = params.get("credential_key", "pack.infoblox.credentials")
     return execute_with_client(operation, params, InfobloxClient(_fetch_key(credential_key)))

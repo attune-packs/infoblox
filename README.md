@@ -8,7 +8,9 @@ dependency with a small direct HTTP client and explicit safety contracts.
 
 ## Credentials and transport
 
-Create the pack-owned Attune Key `infoblox.credentials` with an object value:
+Create the pack-owned Attune Key with `local_ref: credentials`, `name`,
+`owner_type: pack`, `owner_pack_ref: infoblox`, and the object below as `value`.
+Attune constructs the canonical `pack.infoblox.credentials` ref used by actions.
 
 ```json
 {
